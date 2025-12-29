@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Fórum Interno - Verbo de Deus{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Fórum Interno</h2>
+    {% if user.is_authenticated and user.pode_cadastrar_forum %}
+        <a href="{% url 'criar_topico' %}" class="btn btn-primary">Novo Tópico</a>
+    {% endif %}
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form method="get" class="d-flex">
+            <input type="text" name="busca" class="form-control me-2" placeholder="Buscar tópicos..." value="{{ busca }}">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+</div>
+
+<div class="list-group">
+    {% for topico in topicos %}
+    <div class="list-group-item">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">
+                {% if topico.fixado %}
+                    <i class="bi bi-pin-angle-fill text-warning"></i>
+                {% endif %}
+                <a href="{% url 'detalhar_topico' topico.pk %}">{{ topico.titulo }}</a>
+            </h5>
+            <small>{{ topico.criado_em|timesince }} atrás</small>
+        </div>
+        <p class="mb-1">{{ topico.conteudo|striptags|truncatewords:30 }}</p>
+        <small>
+            Por <strong>{{ topico.autor.username }}</strong> | 
+            {{ topico.num_respostas }} resposta{{ topico.num_respostas|pluralize }} | 
+            {{ topico.visualizacoes }} visualizações
+        </small>
+    </div>
+    {% empty %}
+    <div class="alert alert-info">
+        Nenhum tópico encontrado.
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}VDDFlix - Verbo de Deus{% endblock %}
+
+{% block content %}
+<h2>VDDFlix</h2>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#originais" data-bs-toggle="tab">Originais</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#plataformas" data-bs-toggle="tab">Plataformas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#cursos" data-bs-toggle="tab">Cursos</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="originais">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <h4>EBD Recentes</h4>
+                <ul class="list-group">
+                    {% for ebd in ebd_recentes %}
+                    <li class="list-group-item">
+                        <a href="{% url 'detalhar_ebd' ebd.pk %}">{{ ebd.titulo }}</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item">Nenhuma EBD disponível.</li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'listar_ebd' %}" class="btn btn-sm btn-primary mt-2">Ver Todas</a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h4>Devocionais Recentes</h4>
+                <ul class="list-group">
+                    {% for devocional in devocionais_recentes %}
+                    <li class="list-group-item">
+                        <a href="{% url 'detalhar_devocional' devocional.pk %}">{{ devocional.titulo }}</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item">Nenhum devocional disponível.</li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'listar_devocionais' %}" class="btn btn-sm btn-primary mt-2">Ver Todos</a>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="plataformas">
+        <a href="{% url 'listar_plataformas' %}" class="btn btn-primary">Ver Plataformas</a>
+    </div>
+    <div class="tab-pane fade" id="cursos">
+        <a href="{% url 'listar_cursos' %}" class="btn btn-primary">Ver Cursos</a>
+    </div>
+</div>
+{% endblock %}
+

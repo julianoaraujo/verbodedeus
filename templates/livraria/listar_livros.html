@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Livraria - Verbo de Deus{% endblock %}
+
+{% block content %}
+<h2>Livraria</h2>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form method="get" class="d-flex">
+            <input type="text" name="busca" class="form-control me-2" placeholder="Buscar livros..." value="{{ busca }}">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    {% for livro in livros %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if livro.capa %}
+                <img src="{{ livro.capa.url }}" class="card-img-top" alt="{{ livro.titulo }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ livro.titulo }}</h5>
+                <p class="card-text"><strong>Autor:</strong> {{ livro.autor }}</p>
+                <p class="card-text">{{ livro.descricao|truncatewords:20 }}</p>
+                <p class="card-text">
+                    <strong>Preço:</strong> 
+                    {% if livro.preco_promocional %}
+                        <span class="text-decoration-line-through">R$ {{ livro.preco }}</span>
+                        <span class="text-danger">R$ {{ livro.preco_promocional }}</span>
+                    {% else %}
+                        R$ {{ livro.preco }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'detalhar_livro' livro.pk %}" class="btn btn-primary">Ver Detalhes</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-center">Nenhum livro encontrado.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

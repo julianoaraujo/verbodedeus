@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ livro.titulo }} - Livraria{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        {% if livro.capa %}
+            <img src="{{ livro.capa.url }}" class="img-fluid" alt="{{ livro.titulo }}">
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <h2>{{ livro.titulo }}</h2>
+        <p><strong>Autor:</strong> {{ livro.autor }}</p>
+        <p><strong>Preço:</strong> 
+            {% if livro.preco_promocional %}
+                <span class="text-decoration-line-through">R$ {{ livro.preco }}</span>
+                <span class="text-danger fs-4">R$ {{ livro.preco_promocional }}</span>
+            {% else %}
+                <span class="fs-4">R$ {{ livro.preco }}</span>
+            {% endif %}
+        </p>
+        <hr>
+        <h4>Descrição</h4>
+        <p>{{ livro.descricao }}</p>
+        {% if livro.sinopse %}
+            <h4>Sinopse</h4>
+            <p>{{ livro.sinopse }}</p>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'comprar_livro' livro.pk %}" class="btn btn-success btn-lg">Comprar Agora</a>
+        {% else %}
+            <p class="text-muted">Faça login para comprar este livro.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

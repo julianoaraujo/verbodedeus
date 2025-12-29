@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Meu Perfil - Verbo de Deus{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3>Meu Perfil</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Informações</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Perfil:</strong> {{ user.get_tipo_perfil_display }}</p>
+                {% if user.perfil_membro %}
+                    <p><strong>Função:</strong> {{ user.get_perfil_membro_display }}</p>
+                {% endif %}
+                <p><strong>Membro desde:</strong> {{ user.criado_em|date:"d/m/Y" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Início - Verbo de Deus{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron bg-light p-5 rounded mb-4">
+            <h1 class="display-4">Bem-vindo ao Verbo de Deus</h1>
+            <p class="lead">Uma plataforma completa para crescimento espiritual e comunhão cristã.</p>
+            <hr class="my-4">
+            <p>Explore nossos módulos e descubra conteúdo inspirador, livros, cursos e muito mais.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-play-circle"></i> VDDFlix</h5>
+                <p class="card-text">Acesse EBDs, devocionais, podcasts, cultos e muito mais conteúdo cristão.</p>
+                <a href="{% url 'index_vdflix' %}" class="btn btn-primary">Acessar VDDFlix</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-book"></i> Livraria</h5>
+                <p class="card-text">Compre livros digitais em PDF, EPUB e MOBI.</p>
+                <a href="{% url 'listar_livros' %}" class="btn btn-primary">Ver Livros</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-heart"></i> Apoio Espiritual</h5>
+                <p class="card-text">Aconselhamento pastoral e grupo de oração.</p>
+                <a href="{% url 'listar_aconselhamentos' %}" class="btn btn-primary">Acessar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-chat-dots"></i> Fórum</h5>
+                <p class="card-text">Participe de discussões e compartilhe experiências.</p>
+                <a href="{% url 'listar_topicos' %}" class="btn btn-primary">Ver Fórum</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
